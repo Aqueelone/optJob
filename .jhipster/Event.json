@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "campaign",
+            "otherEntityName": "campaign",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "publisher",
+            "otherEntityName": "publisher",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "event"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "type",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "eventType",
+            "fieldType": "EventType",
+            "fieldValues": "SOURCE_EVENT,MEASURED_EVENT",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180403144034",
+    "entityTableName": "event",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "optJob"
+}

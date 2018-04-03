@@ -1,0 +1,132 @@
+package ua.acceptic.optjob.domain;
+
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+import ua.acceptic.optjob.domain.enumeration.EventType;
+
+/**
+ * A Event.
+ */
+@Entity
+@Table(name = "event")
+public class Event implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Column(name = "jhi_type", nullable = false)
+    private String type;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "event_type", nullable = false)
+    private EventType eventType;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Campaign campaign;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Publisher publisher;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Event type(String type) {
+        this.type = type;
+        return this;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public Event eventType(EventType eventType) {
+        this.eventType = eventType;
+        return this;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public Campaign getCampaign() {
+        return campaign;
+    }
+
+    public Event campaign(Campaign campaign) {
+        this.campaign = campaign;
+        return this;
+    }
+
+    public void setCampaign(Campaign campaign) {
+        this.campaign = campaign;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public Event publisher(Publisher publisher) {
+        this.publisher = publisher;
+        return this;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Event event = (Event) o;
+        if (event.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), event.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+            "id=" + getId() +
+            ", type='" + getType() + "'" +
+            ", eventType='" + getEventType() + "'" +
+            "}";
+    }
+}
