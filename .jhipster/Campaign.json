@@ -1,0 +1,43 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "optimizationProps",
+            "otherEntityName": "optimizationProps",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "campaign"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "blacklist",
+            "otherEntityName": "blackList",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "campaign"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "publishers",
+            "otherEntityName": "publisher",
+            "otherEntityRelationshipName": "campaign"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180403144036",
+    "entityTableName": "campaign",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "optJob"
+}
