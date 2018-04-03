@@ -1,0 +1,41 @@
+entity Event {
+	type String required,
+    eventType EventType required
+}
+enum EventType {
+	SOURCE_EVENT, MEASURED_EVENT
+}
+entity Publisher {
+	name String required   
+}
+entity Campaign {
+	name String required
+}
+entity OptimizationProps {
+	threshold Long required,
+    sourceEvent String required,
+    ratioThreshold Float required,
+    measuredEvent String required
+}
+entity BlackList {
+}
+relationship OneToOne {
+	Campaign{optimizationProps} to OptimizationProps,
+    Campaign{blacklist} to BlackList,    
+	Event{campaign} to Campaign,
+    Event{publisher} to Publisher
+}
+relationship OneToMany {
+	Campaign{publishers} to Publisher,
+    BlackList{publishers} to Publisher
+}
+
+// Set pagination options
+paginate * with infinite-scroll
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with optJob
