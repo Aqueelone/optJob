@@ -37,7 +37,7 @@ public class Campaign implements Serializable {
 
     @OneToMany(mappedBy = "campaign")
     @JsonIgnore
-    private Set<Publisher> publishers = new HashSet<>();
+    private Set<CampaignRecord> campaignRecords = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -87,29 +87,29 @@ public class Campaign implements Serializable {
         this.blacklist = blackList;
     }
 
-    public Set<Publisher> getPublishers() {
-        return publishers;
+    public Set<CampaignRecord> getCampaignRecords() {
+        return campaignRecords;
     }
 
-    public Campaign publishers(Set<Publisher> publishers) {
-        this.publishers = publishers;
+    public Campaign campaignRecords(Set<CampaignRecord> campaignRecords) {
+        this.campaignRecords = campaignRecords;
         return this;
     }
 
-    public Campaign addPublishers(Publisher publisher) {
-        this.publishers.add(publisher);
-        publisher.setCampaign(this);
+    public Campaign addCampaignRecord(CampaignRecord campaignRecord) {
+        this.campaignRecords.add(campaignRecord);
+        campaignRecord.setCampaign(this);
         return this;
     }
 
-    public Campaign removePublishers(Publisher publisher) {
-        this.publishers.remove(publisher);
-        publisher.setCampaign(null);
+    public Campaign removeCampaignRecord(CampaignRecord campaignRecord) {
+        this.campaignRecords.remove(campaignRecord);
+        campaignRecord.setCampaign(null);
         return this;
     }
 
-    public void setPublishers(Set<Publisher> publishers) {
-        this.publishers = publishers;
+    public void setCampaignRecords(Set<CampaignRecord> campaignRecords) {
+        this.campaignRecords = campaignRecords;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

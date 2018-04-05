@@ -2,19 +2,17 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
-import { EventOptJob } from './event-opt-job.model';
-import { EventOptJobService } from './event-opt-job.service';
+import { CampaignRecordOptJob } from './campaign-record-opt-job.model';
+import { CampaignRecordOptJobService } from './campaign-record-opt-job.service';
 
 @Injectable()
-export class EventOptJobPopupService {
+export class CampaignRecordOptJobPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
-        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
-        private eventService: EventOptJobService
+        private campaignRecordService: CampaignRecordOptJobService
 
     ) {
         this.ngbModalRef = null;
@@ -28,27 +26,25 @@ export class EventOptJobPopupService {
             }
 
             if (id) {
-                this.eventService.find(id)
-                    .subscribe((eventResponse: HttpResponse<EventOptJob>) => {
-                        const event: EventOptJob = eventResponse.body;
-                        event.created = this.datePipe
-                            .transform(event.created, 'yyyy-MM-ddTHH:mm:ss');
-                        this.ngbModalRef = this.eventModalRef(component, event);
+                this.campaignRecordService.find(id)
+                    .subscribe((campaignRecordResponse: HttpResponse<CampaignRecordOptJob>) => {
+                        const campaignRecord: CampaignRecordOptJob = campaignRecordResponse.body;
+                        this.ngbModalRef = this.campaignRecordModalRef(component, campaignRecord);
                         resolve(this.ngbModalRef);
                     });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    this.ngbModalRef = this.eventModalRef(component, new EventOptJob());
+                    this.ngbModalRef = this.campaignRecordModalRef(component, new CampaignRecordOptJob());
                     resolve(this.ngbModalRef);
                 }, 0);
             }
         });
     }
 
-    eventModalRef(component: Component, event: EventOptJob): NgbModalRef {
+    campaignRecordModalRef(component: Component, campaignRecord: CampaignRecordOptJob): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
-        modalRef.componentInstance.event = event;
+        modalRef.componentInstance.campaignRecord = campaignRecord;
         modalRef.result.then((result) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;

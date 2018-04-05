@@ -5,9 +5,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
-
-import ua.acceptic.optjob.domain.enumeration.EventType;
 
 /**
  * A Event.
@@ -26,10 +25,8 @@ public class Event implements Serializable {
     @Column(name = "jhi_type", nullable = false)
     private String type;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "event_type", nullable = false)
-    private EventType eventType;
+    @Column(name = "created")
+    private Instant created;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -61,17 +58,17 @@ public class Event implements Serializable {
         this.type = type;
     }
 
-    public EventType getEventType() {
-        return eventType;
+    public Instant getCreated() {
+        return created;
     }
 
-    public Event eventType(EventType eventType) {
-        this.eventType = eventType;
+    public Event created(Instant created) {
+        this.created = created;
         return this;
     }
 
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
+    public void setCreated(Instant created) {
+        this.created = created;
     }
 
     public Campaign getCampaign() {
@@ -126,7 +123,7 @@ public class Event implements Serializable {
         return "Event{" +
             "id=" + getId() +
             ", type='" + getType() + "'" +
-            ", eventType='" + getEventType() + "'" +
+            ", created='" + getCreated() + "'" +
             "}";
     }
 }

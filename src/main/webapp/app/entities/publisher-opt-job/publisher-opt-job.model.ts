@@ -4,7 +4,7 @@ export class PublisherOptJob implements BaseEntity {
     constructor(
         public id?: number,
         public name?: string,
-        public campaignId?: number,
+        public campaignRecords?: BaseEntity[],
         public blackListId?: number,
     ) {
     }

@@ -19,8 +19,8 @@
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "publishers",
-            "otherEntityName": "publisher",
+            "relationshipName": "campaignRecord",
+            "otherEntityName": "campaignRecord",
             "otherEntityRelationshipName": "campaign"
         }
     ],
