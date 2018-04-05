@@ -8,12 +8,6 @@
         <dd>
             <span>{{publisher.name}}</span>
         </dd>
-        <dt><span>Campaign</span></dt>
-        <dd>
-            <div *ngIf="publisher.campaignId">
-                <a [routerLink]="['/campaign-opt-job', publisher.campaignId]">{{publisher.campaignId}}</a>
-            </div>
-        </dd>
         <dt><span>Black List</span></dt>
         <dd>
             <div *ngIf="publisher.blackListId">

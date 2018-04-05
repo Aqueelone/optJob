@@ -17,7 +17,7 @@ public interface CampaignMapper extends EntityMapper<CampaignDTO, Campaign> {
 
     @Mapping(source = "optimizationPropsId", target = "optimizationProps")
     @Mapping(source = "blacklistId", target = "blacklist")
-    @Mapping(target = "publishers", ignore = true)
+    @Mapping(target = "campaignRecords", ignore = true)
     Campaign toEntity(CampaignDTO campaignDTO);
 
     default Campaign fromId(Long id) {
