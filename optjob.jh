@@ -1,15 +1,20 @@
 entity Event {
 	type String required,
-    eventType EventType required
+    created Instant
 }
 enum EventType {
 	SOURCE_EVENT, MEASURED_EVENT
+}
+enum ResultType {
+	ADDED, REMOVED
 }
 entity Publisher {
 	name String required   
 }
 entity Campaign {
 	name String required
+}
+entity CampaignRecord {
 }
 entity OptimizationProps {
 	threshold Long required,
@@ -26,7 +31,8 @@ relationship OneToOne {
     Event{publisher} to Publisher
 }
 relationship OneToMany {
-	Campaign{publishers} to Publisher,
+	Campaign{campaignRecord} to CampaignRecord,
+    Publisher{campaignRecord} to CampaignRecord,
     BlackList{publishers} to Publisher
 }
 

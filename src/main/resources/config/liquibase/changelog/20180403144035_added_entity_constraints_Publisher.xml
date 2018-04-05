@@ -8,12 +8,6 @@
     -->
     <changeSet id="20180403144035-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="campaign_id"
-                                 baseTableName="publisher"
-                                 constraintName="fk_publisher_campaign_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="campaign"/>
-
         <addForeignKeyConstraint baseColumnNames="black_list_id"
                                  baseTableName="publisher"
                                  constraintName="fk_publisher_black_list_id"

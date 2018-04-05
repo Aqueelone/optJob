@@ -2,10 +2,10 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "campaign",
-            "otherEntityName": "campaign",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "relationshipType": "one-to-many",
+            "relationshipName": "campaignRecord",
+            "otherEntityName": "campaignRecord",
+            "otherEntityRelationshipName": "publisher"
         },
         {
             "relationshipName": "blackList",
