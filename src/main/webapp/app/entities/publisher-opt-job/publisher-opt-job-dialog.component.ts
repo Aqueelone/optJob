@@ -9,7 +9,6 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { PublisherOptJob } from './publisher-opt-job.model';
 import { PublisherOptJobPopupService } from './publisher-opt-job-popup.service';
 import { PublisherOptJobService } from './publisher-opt-job.service';
-import { CampaignOptJob, CampaignOptJobService } from '../campaign-opt-job';
 import { BlackListOptJob, BlackListOptJobService } from '../black-list-opt-job';
 
 @Component({
@@ -21,15 +20,12 @@ export class PublisherOptJobDialogComponent implements OnInit {
     publisher: PublisherOptJob;
     isSaving: boolean;
 
-    campaigns: CampaignOptJob[];
-
     blacklists: BlackListOptJob[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private publisherService: PublisherOptJobService,
-        private campaignService: CampaignOptJobService,
         private blackListService: BlackListOptJobService,
         private eventManager: JhiEventManager
     ) {
@@ -37,8 +33,6 @@ export class PublisherOptJobDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.campaignService.query()
-            .subscribe((res: HttpResponse<CampaignOptJob[]>) => { this.campaigns = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.blackListService.query()
             .subscribe((res: HttpResponse<BlackListOptJob[]>) => { this.blacklists = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
@@ -75,10 +69,6 @@ export class PublisherOptJobDialogComponent implements OnInit {
 
     private onError(error: any) {
         this.jhiAlertService.error(error.message, null, null);
-    }
-
-    trackCampaignById(index: number, item: CampaignOptJob) {
-        return item.id;
     }
 
     trackBlackListById(index: number, item: BlackListOptJob) {

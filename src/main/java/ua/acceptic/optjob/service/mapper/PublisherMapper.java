@@ -8,14 +8,13 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Publisher and its DTO PublisherDTO.
  */
-@Mapper(componentModel = "spring", uses = {CampaignMapper.class, BlackListMapper.class})
+@Mapper(componentModel = "spring", uses = {BlackListMapper.class})
 public interface PublisherMapper extends EntityMapper<PublisherDTO, Publisher> {
 
-    @Mapping(source = "campaign.id", target = "campaignId")
     @Mapping(source = "blackList.id", target = "blackListId")
     PublisherDTO toDto(Publisher publisher);
 
-    @Mapping(source = "campaignId", target = "campaign")
+    @Mapping(target = "campaignRecords", ignore = true)
     @Mapping(source = "blackListId", target = "blackList")
     Publisher toEntity(PublisherDTO publisherDTO);
 

@@ -1,23 +1,21 @@
 package ua.acceptic.optjob.service.dto;
 
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
 /**
- * A DTO for the Publisher entity.
+ * A DTO for the CampaignRecord entity.
  */
-public class PublisherDTO implements Serializable {
+public class CampaignRecordDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
-    private String name;
+    private Long publisherId;
 
-    private Long blackListId;
+    private Long campaignId;
 
     public Long getId() {
         return id;
@@ -27,20 +25,20 @@ public class PublisherDTO implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getPublisherId() {
+        return publisherId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPublisherId(Long publisherId) {
+        this.publisherId = publisherId;
     }
 
-    public Long getBlackListId() {
-        return blackListId;
+    public Long getCampaignId() {
+        return campaignId;
     }
 
-    public void setBlackListId(Long blackListId) {
-        this.blackListId = blackListId;
+    public void setCampaignId(Long campaignId) {
+        this.campaignId = campaignId;
     }
 
     @Override
@@ -52,11 +50,11 @@ public class PublisherDTO implements Serializable {
             return false;
         }
 
-        PublisherDTO publisherDTO = (PublisherDTO) o;
-        if(publisherDTO.getId() == null || getId() == null) {
+        CampaignRecordDTO campaignRecordDTO = (CampaignRecordDTO) o;
+        if(campaignRecordDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), publisherDTO.getId());
+        return Objects.equals(getId(), campaignRecordDTO.getId());
     }
 
     @Override
@@ -66,9 +64,8 @@ public class PublisherDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "PublisherDTO{" +
+        return "CampaignRecordDTO{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
             "}";
     }
 }

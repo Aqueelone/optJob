@@ -3,6 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
+import { JhiDateUtils } from 'ng-jhipster';
+
 import { EventOptJob } from './event-opt-job.model';
 import { createRequestOption } from '../../shared';
 
@@ -13,7 +15,7 @@ export class EventOptJobService {
 
     private resourceUrl =  SERVER_API_URL + 'api/events';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(event: EventOptJob): Observable<EntityResponseType> {
         const copy = this.convert(event);
@@ -61,6 +63,8 @@ export class EventOptJobService {
      */
     private convertItemFromServer(event: EventOptJob): EventOptJob {
         const copy: EventOptJob = Object.assign({}, event);
+        copy.created = this.dateUtils
+            .convertDateTimeFromServer(event.created);
         return copy;
     }
 
@@ -69,6 +73,8 @@ export class EventOptJobService {
      */
     private convert(event: EventOptJob): EventOptJob {
         const copy: EventOptJob = Object.assign({}, event);
+
+        copy.created = this.dateUtils.toDate(event.created);
         return copy;
     }
 }

@@ -1,10 +1,13 @@
 package ua.acceptic.optjob.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -24,8 +27,9 @@ public class Publisher implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
-    private Campaign campaign;
+    @OneToMany(mappedBy = "publisher")
+    @JsonIgnore
+    private Set<CampaignRecord> campaignRecords = new HashSet<>();
 
     @ManyToOne
     private BlackList blackList;
@@ -52,17 +56,29 @@ public class Publisher implements Serializable {
         this.name = name;
     }
 
-    public Campaign getCampaign() {
-        return campaign;
+    public Set<CampaignRecord> getCampaignRecords() {
+        return campaignRecords;
     }
 
-    public Publisher campaign(Campaign campaign) {
-        this.campaign = campaign;
+    public Publisher campaignRecords(Set<CampaignRecord> campaignRecords) {
+        this.campaignRecords = campaignRecords;
         return this;
     }
 
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
+    public Publisher addCampaignRecord(CampaignRecord campaignRecord) {
+        this.campaignRecords.add(campaignRecord);
+        campaignRecord.setPublisher(this);
+        return this;
+    }
+
+    public Publisher removeCampaignRecord(CampaignRecord campaignRecord) {
+        this.campaignRecords.remove(campaignRecord);
+        campaignRecord.setPublisher(null);
+        return this;
+    }
+
+    public void setCampaignRecords(Set<CampaignRecord> campaignRecords) {
+        this.campaignRecords = campaignRecords;
     }
 
     public BlackList getBlackList() {

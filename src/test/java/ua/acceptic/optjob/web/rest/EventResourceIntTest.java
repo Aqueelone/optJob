@@ -24,6 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static ua.acceptic.optjob.web.rest.TestUtil.createFormattingConversionService;
@@ -32,7 +34,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import ua.acceptic.optjob.domain.enumeration.EventType;
 /**
  * Test class for the EventResource REST controller.
  *
@@ -45,8 +46,8 @@ public class EventResourceIntTest {
     private static final String DEFAULT_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_TYPE = "BBBBBBBBBB";
 
-    private static final EventType DEFAULT_EVENT_TYPE = EventType.SOURCE_EVENT;
-    private static final EventType UPDATED_EVENT_TYPE = EventType.MEASURED_EVENT;
+    private static final Instant DEFAULT_CREATED = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private EventRepository eventRepository;
@@ -93,7 +94,7 @@ public class EventResourceIntTest {
     public static Event createEntity(EntityManager em) {
         Event event = new Event()
             .type(DEFAULT_TYPE)
-            .eventType(DEFAULT_EVENT_TYPE);
+            .created(DEFAULT_CREATED);
         return event;
     }
 
@@ -119,7 +120,7 @@ public class EventResourceIntTest {
         assertThat(eventList).hasSize(databaseSizeBeforeCreate + 1);
         Event testEvent = eventList.get(eventList.size() - 1);
         assertThat(testEvent.getType()).isEqualTo(DEFAULT_TYPE);
-        assertThat(testEvent.getEventType()).isEqualTo(DEFAULT_EVENT_TYPE);
+        assertThat(testEvent.getCreated()).isEqualTo(DEFAULT_CREATED);
     }
 
     @Test
@@ -163,25 +164,6 @@ public class EventResourceIntTest {
 
     @Test
     @Transactional
-    public void checkEventTypeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = eventRepository.findAll().size();
-        // set the field null
-        event.setEventType(null);
-
-        // Create the Event, which fails.
-        EventDTO eventDTO = eventMapper.toDto(event);
-
-        restEventMockMvc.perform(post("/api/events")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(eventDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Event> eventList = eventRepository.findAll();
-        assertThat(eventList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllEvents() throws Exception {
         // Initialize the database
         eventRepository.saveAndFlush(event);
@@ -192,7 +174,7 @@ public class EventResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(event.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].eventType").value(hasItem(DEFAULT_EVENT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].created").value(hasItem(DEFAULT_CREATED.toString())));
     }
 
     @Test
@@ -207,7 +189,7 @@ public class EventResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(event.getId().intValue()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.eventType").value(DEFAULT_EVENT_TYPE.toString()));
+            .andExpect(jsonPath("$.created").value(DEFAULT_CREATED.toString()));
     }
 
     @Test
@@ -231,7 +213,7 @@ public class EventResourceIntTest {
         em.detach(updatedEvent);
         updatedEvent
             .type(UPDATED_TYPE)
-            .eventType(UPDATED_EVENT_TYPE);
+            .created(UPDATED_CREATED);
         EventDTO eventDTO = eventMapper.toDto(updatedEvent);
 
         restEventMockMvc.perform(put("/api/events")
@@ -244,7 +226,7 @@ public class EventResourceIntTest {
         assertThat(eventList).hasSize(databaseSizeBeforeUpdate);
         Event testEvent = eventList.get(eventList.size() - 1);
         assertThat(testEvent.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testEvent.getEventType()).isEqualTo(UPDATED_EVENT_TYPE);
+        assertThat(testEvent.getCreated()).isEqualTo(UPDATED_CREATED);
     }
 
     @Test

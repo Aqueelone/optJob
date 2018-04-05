@@ -24,16 +24,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_eventType">Event Type</label>
-            <select class="form-control" name="eventType" [(ngModel)]="event.eventType" id="field_eventType"  required>
-                <option value="SOURCE_EVENT">SOURCE_EVENT</option>
-                <option value="MEASURED_EVENT">MEASURED_EVENT</option>
-            </select>
-            <div [hidden]="!(editForm.controls.eventType?.dirty && editForm.controls.eventType?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.eventType?.errors?.required">
-                   This field is required.
-                </small>
+            <label class="form-control-label" for="field_created">Created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="event.created"
+                />
             </div>
         </div>
 

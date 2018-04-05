@@ -1,12 +1,12 @@
 package ua.acceptic.optjob.service.dto;
 
 
+import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
-import ua.acceptic.optjob.domain.enumeration.EventType;
 
 /**
  * A DTO for the Event entity.
@@ -18,8 +18,7 @@ public class EventDTO implements Serializable {
     @NotNull
     private String type;
 
-    @NotNull
-    private EventType eventType;
+    private Instant created;
 
     private Long campaignId;
 
@@ -41,12 +40,12 @@ public class EventDTO implements Serializable {
         this.type = type;
     }
 
-    public EventType getEventType() {
-        return eventType;
+    public Instant getCreated() {
+        return created;
     }
 
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
+    public void setCreated(Instant created) {
+        this.created = created;
     }
 
     public Long getCampaignId() {
@@ -91,7 +90,7 @@ public class EventDTO implements Serializable {
         return "EventDTO{" +
             "id=" + getId() +
             ", type='" + getType() + "'" +
-            ", eventType='" + getEventType() + "'" +
+            ", created='" + getCreated() + "'" +
             "}";
     }
 }

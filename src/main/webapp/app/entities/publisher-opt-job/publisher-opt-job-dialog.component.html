@@ -25,13 +25,6 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label" for="field_campaign">Campaign</label>
-            <select class="form-control" id="field_campaign" name="campaign" [(ngModel)]="publisher.campaignId" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="campaignOption.id" *ngFor="let campaignOption of campaigns; trackBy: trackCampaignById">{{campaignOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" for="field_blackList">Black List</label>
             <select class="form-control" id="field_blackList" name="blackList" [(ngModel)]="publisher.blackListId" >
                 <option [ngValue]="null"></option>

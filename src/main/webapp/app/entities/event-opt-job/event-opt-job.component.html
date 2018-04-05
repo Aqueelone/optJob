@@ -18,7 +18,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="type"><span>Type</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="eventType"><span>Event Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="created"><span>Created</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="campaignId"><span>Campaign</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="publisherId"><span>Publisher</span> <span class="fa fa-sort"></span></th>
             <th></th>
@@ -28,7 +28,7 @@
             <tr *ngFor="let event of events ;trackBy: trackId">
                 <td><a [routerLink]="['../event-opt-job', event.id ]">{{event.id}}</a></td>
                 <td>{{event.type}}</td>
-                <td>{{event.eventType}}</td>
+                <td>{{event.created | date:'medium'}}</td>
                 <td>
                     <div *ngIf="event.campaignId">
                         <a [routerLink]="['../campaign-opt-job', event.campaignId  ]" >{{event.campaignId}}</a>

@@ -27,12 +27,8 @@
             ]
         },
         {
-            "fieldName": "eventType",
-            "fieldType": "EventType",
-            "fieldValues": "SOURCE_EVENT,MEASURED_EVENT",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldName": "created",
+            "fieldType": "Instant"
         }
     ],
     "changelogDate": "20180403144034",
