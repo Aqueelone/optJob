@@ -5,7 +5,7 @@ export class PublisherOptJob implements BaseEntity {
         public id?: number,
         public name?: string,
         public campaignRecords?: BaseEntity[],
-        public blackListId?: number,
+        public blacklistRecords?: BaseEntity[],
     ) {
     }
 }

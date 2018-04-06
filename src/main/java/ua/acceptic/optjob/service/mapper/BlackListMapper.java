@@ -12,7 +12,7 @@ import org.mapstruct.*;
 public interface BlackListMapper extends EntityMapper<BlackListDTO, BlackList> {
 
 
-    @Mapping(target = "publishers", ignore = true)
+    @Mapping(target = "blacklistRecords", ignore = true)
     BlackList toEntity(BlackListDTO blackListDTO);
 
     default BlackList fromId(Long id) {
