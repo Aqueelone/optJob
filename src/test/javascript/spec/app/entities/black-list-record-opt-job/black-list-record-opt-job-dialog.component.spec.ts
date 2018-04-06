@@ -6,35 +6,39 @@ import { Observable } from 'rxjs/Observable';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { OptJobTestModule } from '../../../test.module';
-import { PublisherOptJobDialogComponent } from '../../../../../../main/webapp/app/entities/publisher-opt-job/publisher-opt-job-dialog.component';
-import { PublisherOptJobService } from '../../../../../../main/webapp/app/entities/publisher-opt-job/publisher-opt-job.service';
-import { PublisherOptJob } from '../../../../../../main/webapp/app/entities/publisher-opt-job/publisher-opt-job.model';
+import { BlackListRecordOptJobDialogComponent } from '../../../../../../main/webapp/app/entities/black-list-record-opt-job/black-list-record-opt-job-dialog.component';
+import { BlackListRecordOptJobService } from '../../../../../../main/webapp/app/entities/black-list-record-opt-job/black-list-record-opt-job.service';
+import { BlackListRecordOptJob } from '../../../../../../main/webapp/app/entities/black-list-record-opt-job/black-list-record-opt-job.model';
+import { PublisherOptJobService } from '../../../../../../main/webapp/app/entities/publisher-opt-job';
+import { BlackListOptJobService } from '../../../../../../main/webapp/app/entities/black-list-opt-job';
 
 describe('Component Tests', () => {
 
-    describe('PublisherOptJob Management Dialog Component', () => {
-        let comp: PublisherOptJobDialogComponent;
-        let fixture: ComponentFixture<PublisherOptJobDialogComponent>;
-        let service: PublisherOptJobService;
+    describe('BlackListRecordOptJob Management Dialog Component', () => {
+        let comp: BlackListRecordOptJobDialogComponent;
+        let fixture: ComponentFixture<BlackListRecordOptJobDialogComponent>;
+        let service: BlackListRecordOptJobService;
         let mockEventManager: any;
         let mockActiveModal: any;
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
                 imports: [OptJobTestModule],
-                declarations: [PublisherOptJobDialogComponent],
+                declarations: [BlackListRecordOptJobDialogComponent],
                 providers: [
-                    PublisherOptJobService
+                    PublisherOptJobService,
+                    BlackListOptJobService,
+                    BlackListRecordOptJobService
                 ]
             })
-            .overrideTemplate(PublisherOptJobDialogComponent, '')
+            .overrideTemplate(BlackListRecordOptJobDialogComponent, '')
             .compileComponents();
         }));
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(PublisherOptJobDialogComponent);
+            fixture = TestBed.createComponent(BlackListRecordOptJobDialogComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(PublisherOptJobService);
+            service = fixture.debugElement.injector.get(BlackListRecordOptJobService);
             mockEventManager = fixture.debugElement.injector.get(JhiEventManager);
             mockActiveModal = fixture.debugElement.injector.get(NgbActiveModal);
         });
@@ -44,9 +48,9 @@ describe('Component Tests', () => {
                 inject([],
                     fakeAsync(() => {
                         // GIVEN
-                        const entity = new PublisherOptJob(123);
+                        const entity = new BlackListRecordOptJob(123);
                         spyOn(service, 'update').and.returnValue(Observable.of(new HttpResponse({body: entity})));
-                        comp.publisher = entity;
+                        comp.blackListRecord = entity;
                         // WHEN
                         comp.save();
                         tick(); // simulate async
@@ -54,7 +58,7 @@ describe('Component Tests', () => {
                         // THEN
                         expect(service.update).toHaveBeenCalledWith(entity);
                         expect(comp.isSaving).toEqual(false);
-                        expect(mockEventManager.broadcastSpy).toHaveBeenCalledWith({ name: 'publisherListModification', content: 'OK'});
+                        expect(mockEventManager.broadcastSpy).toHaveBeenCalledWith({ name: 'blackListRecordListModification', content: 'OK'});
                         expect(mockActiveModal.dismissSpy).toHaveBeenCalled();
                     })
                 )
@@ -64,9 +68,9 @@ describe('Component Tests', () => {
                 inject([],
                     fakeAsync(() => {
                         // GIVEN
-                        const entity = new PublisherOptJob();
+                        const entity = new BlackListRecordOptJob();
                         spyOn(service, 'create').and.returnValue(Observable.of(new HttpResponse({body: entity})));
-                        comp.publisher = entity;
+                        comp.blackListRecord = entity;
                         // WHEN
                         comp.save();
                         tick(); // simulate async
@@ -74,7 +78,7 @@ describe('Component Tests', () => {
                         // THEN
                         expect(service.create).toHaveBeenCalledWith(entity);
                         expect(comp.isSaving).toEqual(false);
-                        expect(mockEventManager.broadcastSpy).toHaveBeenCalledWith({ name: 'publisherListModification', content: 'OK'});
+                        expect(mockEventManager.broadcastSpy).toHaveBeenCalledWith({ name: 'blackListRecordListModification', content: 'OK'});
                         expect(mockActiveModal.dismissSpy).toHaveBeenCalled();
                     })
                 )

@@ -8,12 +8,6 @@
         <dd>
             <span>{{publisher.name}}</span>
         </dd>
-        <dt><span>Black List</span></dt>
-        <dd>
-            <div *ngIf="publisher.blackListId">
-                <a [routerLink]="['/black-list-opt-job', publisher.blackListId]">{{publisher.blackListId}}</a>
-            </div>
-        </dd>
     </dl>
 
     <button type="submit"

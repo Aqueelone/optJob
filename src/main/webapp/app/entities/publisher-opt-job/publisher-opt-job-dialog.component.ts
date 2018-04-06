@@ -4,12 +4,11 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { PublisherOptJob } from './publisher-opt-job.model';
 import { PublisherOptJobPopupService } from './publisher-opt-job-popup.service';
 import { PublisherOptJobService } from './publisher-opt-job.service';
-import { BlackListOptJob, BlackListOptJobService } from '../black-list-opt-job';
 
 @Component({
     selector: 'jhi-publisher-opt-job-dialog',
@@ -20,21 +19,15 @@ export class PublisherOptJobDialogComponent implements OnInit {
     publisher: PublisherOptJob;
     isSaving: boolean;
 
-    blacklists: BlackListOptJob[];
-
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiAlertService: JhiAlertService,
         private publisherService: PublisherOptJobService,
-        private blackListService: BlackListOptJobService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.blackListService.query()
-            .subscribe((res: HttpResponse<BlackListOptJob[]>) => { this.blacklists = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -65,14 +58,6 @@ export class PublisherOptJobDialogComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(error: any) {
-        this.jhiAlertService.error(error.message, null, null);
-    }
-
-    trackBlackListById(index: number, item: BlackListOptJob) {
-        return item.id;
     }
 }
 
