@@ -8,10 +8,10 @@
             "otherEntityRelationshipName": "publisher"
         },
         {
-            "relationshipName": "blackList",
-            "otherEntityName": "blackList",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "relationshipType": "one-to-many",
+            "relationshipName": "blacklistRecord",
+            "otherEntityName": "blackListRecord",
+            "otherEntityRelationshipName": "publisher"
         }
     ],
     "fields": [
