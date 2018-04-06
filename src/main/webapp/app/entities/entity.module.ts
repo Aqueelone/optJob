@@ -6,6 +6,7 @@ import { OptJobCampaignOptJobModule } from './campaign-opt-job/campaign-opt-job.
 import { OptJobOptimizationPropsOptJobModule } from './optimization-props-opt-job/optimization-props-opt-job.module';
 import { OptJobBlackListOptJobModule } from './black-list-opt-job/black-list-opt-job.module';
 import { OptJobCampaignRecordOptJobModule } from './campaign-record-opt-job/campaign-record-opt-job.module';
+import { OptJobBlackListRecordOptJobModule } from './black-list-record-opt-job/black-list-record-opt-job.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -16,6 +17,7 @@ import { OptJobCampaignRecordOptJobModule } from './campaign-record-opt-job/camp
         OptJobOptimizationPropsOptJobModule,
         OptJobBlackListOptJobModule,
         OptJobCampaignRecordOptJobModule,
+        OptJobBlackListRecordOptJobModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

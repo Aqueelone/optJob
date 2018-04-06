@@ -31,8 +31,9 @@ public class Publisher implements Serializable {
     @JsonIgnore
     private Set<CampaignRecord> campaignRecords = new HashSet<>();
 
-    @ManyToOne
-    private BlackList blackList;
+    @OneToMany(mappedBy = "publisher")
+    @JsonIgnore
+    private Set<BlackListRecord> blacklistRecords = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -81,17 +82,29 @@ public class Publisher implements Serializable {
         this.campaignRecords = campaignRecords;
     }
 
-    public BlackList getBlackList() {
-        return blackList;
+    public Set<BlackListRecord> getBlacklistRecords() {
+        return blacklistRecords;
     }
 
-    public Publisher blackList(BlackList blackList) {
-        this.blackList = blackList;
+    public Publisher blacklistRecords(Set<BlackListRecord> blackListRecords) {
+        this.blacklistRecords = blackListRecords;
         return this;
     }
 
-    public void setBlackList(BlackList blackList) {
-        this.blackList = blackList;
+    public Publisher addBlacklistRecord(BlackListRecord blackListRecord) {
+        this.blacklistRecords.add(blackListRecord);
+        blackListRecord.setPublisher(this);
+        return this;
+    }
+
+    public Publisher removeBlacklistRecord(BlackListRecord blackListRecord) {
+        this.blacklistRecords.remove(blackListRecord);
+        blackListRecord.setPublisher(null);
+        return this;
+    }
+
+    public void setBlacklistRecords(Set<BlackListRecord> blackListRecords) {
+        this.blacklistRecords = blackListRecords;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

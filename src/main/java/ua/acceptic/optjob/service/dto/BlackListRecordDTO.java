@@ -1,21 +1,21 @@
 package ua.acceptic.optjob.service.dto;
 
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
 /**
- * A DTO for the Publisher entity.
+ * A DTO for the BlackListRecord entity.
  */
-public class PublisherDTO implements Serializable {
+public class BlackListRecordDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
-    private String name;
+    private Long publisherId;
+
+    private Long blackListId;
 
     public Long getId() {
         return id;
@@ -25,12 +25,20 @@ public class PublisherDTO implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getPublisherId() {
+        return publisherId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPublisherId(Long publisherId) {
+        this.publisherId = publisherId;
+    }
+
+    public Long getBlackListId() {
+        return blackListId;
+    }
+
+    public void setBlackListId(Long blackListId) {
+        this.blackListId = blackListId;
     }
 
     @Override
@@ -42,11 +50,11 @@ public class PublisherDTO implements Serializable {
             return false;
         }
 
-        PublisherDTO publisherDTO = (PublisherDTO) o;
-        if(publisherDTO.getId() == null || getId() == null) {
+        BlackListRecordDTO blackListRecordDTO = (BlackListRecordDTO) o;
+        if(blackListRecordDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), publisherDTO.getId());
+        return Objects.equals(getId(), blackListRecordDTO.getId());
     }
 
     @Override
@@ -56,9 +64,8 @@ public class PublisherDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "PublisherDTO{" +
+        return "BlackListRecordDTO{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
             "}";
     }
 }
