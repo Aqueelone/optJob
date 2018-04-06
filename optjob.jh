@@ -24,6 +24,9 @@ entity OptimizationProps {
 }
 entity BlackList {
 }
+entity BlackListRecord {
+
+}
 relationship OneToOne {
 	Campaign{optimizationProps} to OptimizationProps,
     Campaign{blacklist} to BlackList,    
@@ -33,7 +36,8 @@ relationship OneToOne {
 relationship OneToMany {
 	Campaign{campaignRecord} to CampaignRecord,
     Publisher{campaignRecord} to CampaignRecord,
-    BlackList{publishers} to Publisher
+    BlackList{blacklistRecord} to BlackListRecord,
+    Publisher{blacklistRecord} to BlackListRecord
 }
 
 // Set pagination options
